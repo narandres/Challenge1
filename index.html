@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Encriptador de texto</title>
+        <link rel="stylesheet" href="challenge.css">
+    </head>
+    <header>
+        <img class="logo" src="imagenes/Logo.png">
+    </header>
+    <body>
+        <div class="cuerpo1">
+            <div class="caja_area_entrada">
+                <textarea class="estiloarea1" id="area1" name="area_Capturar" placeholder="Ingrese el texto aqui"></textarea>
+            </div>
+            <p class="solo_letras"><span class="exclamacion">!</span> Solo letras minúsculas y sin acentos</p>
+            <div class="caja_botones">
+                <button id="b1_Encriptar" name="encriptar" class="boton_encriptar">Encriptar</button>
+                <button id="b2_Desencriptar" name="desencriptar" class="boton_desencriptar">Desencriptar</button>
+            </div>
+        </div>
+        <div class="cuerpo2">
+            <div class="caja_encriptado1" id="caja_encriptado1">
+                <img class="muñeco" id="muñeco" src="imagenes/Muñeco.png">
+                <div class="caja_texto_cuerpo2">
+                    <p class="texto_ningun">Ningun mensaje fue encontrado</p>
+                    <p class="texto_ingrese">Ingresa el texto que desees desencriptar o encriptar</p>
+                </div>
+            </div>
+            <div id="caja_encriptado2" style="display: none;">
+                <textarea id="texto_resultado" class="textarea2" ></textarea>
+            </div>
+        </div>
+    </body>
+    <footer>
+    </footer>
+</html>
+<script>
+    /*var input= document.querySelector("#entrada");*/
+
+    var button1 = document.querySelector("#b1_Encriptar");
+    var button2 = document.querySelector("#b2_Desencriptar");
+    
+    button1.onclick = fencriptar;  /*sin parentesis para que no la llame automaticamente*/
+    button2.onclick = fdesencriptar;
+
+    function fencriptar(){
+        /*La letra "e" es convertida para "enter"
+        La letra "i" es convertida para "imes"
+        La letra "a" es convertida para "ai"
+        La letra "o" es convertida para "ober"
+        La letra "u" es convertida para "ufat"*/
+        let texto_original = area1.value.split("");
+        let encriptado = area1.value.split("");
+        for(let index = 0; index < texto_original.length ; index++ ){
+            if(texto_original[index] == "a"){
+                encriptado[index] ="ai";
+            } else if(texto_original[index] == "e"){
+                encriptado[index] = "enter";
+            } else if(texto_original[index] == "i"){
+                encriptado[index] = "imes";
+            } else if(texto_original[index] == "o"){
+                encriptado[index] = "ober";
+            } else if(texto_original[index] == "u"){
+                encriptado[index] = "ufat"; 
+            }
+        }
+
+        document.getElementById("caja_encriptado2").style.display = "block";
+        document.getElementById("caja_encriptado1").style.display = "none";
+        document.getElementById('texto_resultado').value = (encriptado.join(""));
+    }
+    function fdesencriptar(){
+        let texto_original = area1.value.split("");
+        let desencriptado = area1.value.split("");
+        for(let index = 0; index < texto_original.length ; index++ ){
+
+            if(texto_original[index] == "a" && 
+                    texto_original[index+1] == "i"){
+                desencriptado[index] = "a";
+                desencriptado[index+1] = "";
+                index++;
+
+            } else if(texto_original[index] == "e" &&
+                    texto_original[index+1] == "n" && 
+                    texto_original[index+2] == "t" && 
+                    texto_original[index+3] == "e" && 
+                    texto_original[index+4] == "r"){
+                desencriptado[index] = "e";
+                desencriptado[index+1] = "";
+                desencriptado[index+2] = "";
+                desencriptado[index+3] = "";
+                desencriptado[index+4] = "";
+                index+=3;
+            } else if(texto_original[index] == "i" &&
+                    texto_original[index+1] == "m" && 
+                    texto_original[index+2] == "e" && 
+                    texto_original[index+3] == "s"){
+                desencriptado[index] = "i";
+                desencriptado[index+1] = "";
+                desencriptado[index+2] = "";
+                desencriptado[index+3] = "";
+                index+=2;
+            } else if(texto_original[index] == "o" &&
+                    texto_original[index+1] == "b" && 
+                    texto_original[index+2] == "e" && 
+                    texto_original[index+3] == "r"){
+                desencriptado[index] = "o";
+                desencriptado[index+1] = "";
+                desencriptado[index+2] = "";
+                desencriptado[index+3] = "";
+                index+=2;                
+            } else if(texto_original[index] == "u"&&
+                    texto_original[index+1] == "f" && 
+                    texto_original[index+2] == "a" && 
+                    texto_original[index+3] == "t"){
+                desencriptado[index] = "u";
+                desencriptado[index+1] = "";
+                desencriptado[index+2] = "";
+                desencriptado[index+3] = "";
+                index+=2;    
+            }           
+        }
+        document.getElementById("caja_encriptado2").style.display = "block";
+        document.getElementById("caja_encriptado1").style.display = "none";
+        document.getElementById('texto_resultado').value = (desencriptado.join(""));
+    }
+</script>
